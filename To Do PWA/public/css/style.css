@@ -97,7 +97,7 @@ h1 {
     color: white;
 }
 
-#alert-btn, #subscribe-btn {
+#alert-btn, #subscribe-btn, .container button {
     padding: 15px 30px;
     border: none;
     border-radius: 8px;
