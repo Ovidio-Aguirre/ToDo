@@ -12,12 +12,14 @@
         <div class="input-container">
             <input type="text" id="task-input" placeholder="Agrega una nueva tarea...">
             <button id="add-task-btn">Agregar</button>
+            <button id="send-alert-btn">Enviar Alerta</button>
         </div>
         <ul id="task-list" class="task-list"></ul>
         <button id="logout-btn" class="secondary" style="margin-top: 20px;">Cerrar Sesión</button>
     </div>
 
     <script src="api.js"></script>
+    <script src="js/notifications.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -28,6 +30,8 @@
             
             const taskInput = document.getElementById('task-input');
             const addTaskBtn = document.getElementById('add-task-btn');
+            const sendAlertBtn = document.getElementById('send-alert-btn');
+
             addTaskBtn.addEventListener('click', async () => {
                 if (taskInput.value.trim() !== '') {
                     await addTask({
@@ -39,6 +43,10 @@
                     taskInput.value = '';
                     await loadTasks();
                 }
+            });
+
+            sendAlertBtn.addEventListener('click', async () => {
+                await sendNotification('Ovidio te ha enviado una alerta.', 'Angie');
             });
 
             document.getElementById('logout-btn').addEventListener('click', () => {
@@ -71,4 +79,6 @@
     </script>
 </body>
 </html>
+
+
 
