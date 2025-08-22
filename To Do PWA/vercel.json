@@ -1,7 +1,5 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/public/girlfriend_view.html" },
-    { "source": "/myview", "destination": "/public/my_view.html" },
     { "source": "/(.*)", "destination": "/public/$1" }
   ]
 }
