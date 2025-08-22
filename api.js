@@ -4,11 +4,8 @@ const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbw1yzZUinA_WAOit
 // Function to handle login
 async function login(username, password) {
     try {
-        const response = await fetch(SHEETS_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'login', username, password })
-        });
+        const url = `${SHEETS_API_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+        const response = await fetch(url);
         const result = await response.json();
         return result;
     } catch (error) {
@@ -32,11 +29,8 @@ async function getTasks() {
 // Function to add a task
 async function addTask(task) {
     try {
-        const response = await fetch(SHEETS_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'addTask', task })
-        });
+        const url = `${SHEETS_API_URL}?action=addTask&text=${encodeURIComponent(task.text)}&username=${encodeURIComponent(task.username)}`;
+        const response = await fetch(url);
         const result = await response.json();
         return result;
     } catch (error) {
@@ -48,11 +42,8 @@ async function addTask(task) {
 // Function to update task status
 async function updateTaskStatus(id, completed) {
     try {
-        const response = await fetch(SHEETS_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'updateStatus', id, completed })
-        });
+        const url = `${SHEETS_API_URL}?action=updateStatus&id=${id}&completed=${completed}`;
+        const response = await fetch(url);
         const result = await response.json();
         return result;
     } catch (error) {
@@ -64,11 +55,8 @@ async function updateTaskStatus(id, completed) {
 // Function to delete a task
 async function deleteTask(id) {
     try {
-        const response = await fetch(SHEETS_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'deleteTask', id })
-        });
+        const url = `${SHEETS_API_URL}?action=deleteTask&id=${id}`;
+        const response = await fetch(url);
         const result = await response.json();
         return result;
     } catch (error) {
