@@ -5,14 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            max-width: 450px;
+        }
+        .container h1 {
+            font-size: 2.5em;
+        }
+        .container p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .button-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .button-group button.secondary {
+            background-color: #28a745;
+        }
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+        .button-group button.secondary:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container" style="text-align: center;">
+    <div class="container">
         <h1>Bienvenido</h1>
         <p>Por favor, selecciona tu vista:</p>
-        <button onclick="window.location.href = 'girlfriend_view.html'">Ver mis Tareas (Para tu novia)</button>
-        <button onclick="window.location.href = 'my_view.html'" style="background-color: #3f51b5;">Enviar Alerta (Para ti)</button>
+        <div class="button-group">
+            <button onclick="window.location.href = 'girlfriend_view.html'">Ver mis Tareas</button>
+            <button class="secondary" onclick="window.location.href = 'my_view.html'">Mi Vista</button>
+        </div>
     </div>
     
 </body>
