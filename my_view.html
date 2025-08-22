@@ -5,24 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Vista</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/google/material-design-icons/master/png/action/done_black_18dp.png">
 </head>
 <body>
-
     <div class="container">
-        <h1>Enviar Alerta a tu Novia</h1>
-        <button id="alert-btn">Enviar Recordatorio</button>
-        <p id="status-message"></p>
-
-        <h2>Gestionar Tareas</h2>
-        <input type="text" id="task-input" placeholder="Agregar/Editar una tarea...">
-        <button id="add-task-btn">Agregar</button>
-
-        <ul class="task-list" id="task-list"></ul>
+        <h1 id="page-title">Tareas para Angie</h1>
+        <div class="input-container">
+            <input type="text" id="task-input" placeholder="Agrega una nueva tarea...">
+            <button id="add-task-btn">Agregar</button>
+        </div>
+        <ul id="task-list" class="task-list"></ul>
+        <button id="logout-btn" class="secondary" style="margin-top: 20px;">Cerrar Sesión</button>
     </div>
-    
-<script src="js/common.js"></script>
-<script src="js/gf_app.js"></script>
+
+    <script src="api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.view !== 'my_view') {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            const taskInput = document.getElementById('task-input');
+            const addTaskBtn = document.getElementById('add-task-btn');
+            addTaskBtn.addEventListener('click', async () => {
+                if (taskInput.value.trim() !== '') {
+                    await addTask({
+                        id: Date.now(),
+                        text: taskInput.value.trim(),
+                        completed: false,
+                        username: currentUser.username
+                    });
+                    taskInput.value = '';
+                    await loadTasks();
+                }
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            });
+
+            loadTasks();
+        });
+
+        async function loadTasks() {
+            const tasks = await getTasks();
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.className = `task-item ${task.completed ? 'completed' : ''}`;
+                li.dataset.id = task.id;
+
+                li.innerHTML = `
+                    <input type="checkbox" ${task.completed ? 'checked' : ''} onclick="updateTaskStatus(${task.id}, ${!task.completed})">
+                    <span class="task-text">${task.text}</span>
+                    <div class="task-actions">
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">Eliminar</button>
+                    </div>
+                `;
+                taskList.appendChild(li);
+            });
+        }
+    </script>
 </body>
 </html>
-
