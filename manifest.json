@@ -2,7 +2,7 @@
     "name": "Recordatorios para mi novia",
     "short_name": "Recordatorios",
     "description": "Una PWA para recordatorios de tareas.",
-    "start_url": "/girlfriend_view.html",
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#2196F3",
