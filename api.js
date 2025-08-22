@@ -1,5 +1,5 @@
 // La URL del endpoint de tu Google Apps Script. DEBES REEMPLAZAR ESTO.
-const SHEETS_API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbw1yzZUinA_WAOitNfRaNVBVJIGIWLzKojQxDfCYn6GO_piiUTR9Q-o-cvjjQwcAaBeaQ/exec';
 
 // Función para manejar el inicio de sesión
 async function login(username, password) {
