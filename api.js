@@ -1,7 +1,8 @@
-// The URL of your Google Sheets API endpoint. YOU MUST REPLACE THIS.
+// La URL del endpoint de tu Google Apps Script. DEBES REEMPLAZAR ESTO.
+// La URL debe terminar en '/exec'.
 const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbw1yzZUinA_WAOitNfRaNVBVJIGIWLzKojQxDfCYn6GO_piiUTR9Q-o-cvjjQwcAaBeaQ/exec';
 
-// Function to handle login
+// Función para manejar el inicio de sesión
 async function login(username, password) {
     try {
         const url = `${SHEETS_API_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
@@ -10,23 +11,23 @@ async function login(username, password) {
         return result;
     } catch (error) {
         console.error('Login error:', error);
-        return { status: 'error', message: 'Network or API error.' };
+        return { status: 'error', message: 'Error de red o de API.' };
     }
 }
 
-// Function to get all tasks
+// Función para obtener todas las tareas
 async function getTasks() {
     try {
         const response = await fetch(SHEETS_API_URL + '?action=getTasks');
         const tasks = await response.json();
         return tasks;
     } catch (error) {
-        console.error('Error getting tasks:', error);
+        console.error('Error al obtener las tareas:', error);
         return [];
     }
 }
 
-// Function to add a task
+// Función para agregar una tarea
 async function addTask(task) {
     try {
         const url = `${SHEETS_API_URL}?action=addTask&text=${encodeURIComponent(task.text)}&username=${encodeURIComponent(task.username)}`;
@@ -34,12 +35,12 @@ async function addTask(task) {
         const result = await response.json();
         return result;
     } catch (error) {
-        console.error('Error adding task:', error);
-        return { status: 'error', message: 'Network or API error.' };
+        console.error('Error al agregar la tarea:', error);
+        return { status: 'error', message: 'Error de red o de API.' };
     }
 }
 
-// Function to update task status
+// Función para actualizar el estado de una tarea
 async function updateTaskStatus(id, completed) {
     try {
         const url = `${SHEETS_API_URL}?action=updateStatus&id=${id}&completed=${completed}`;
@@ -47,12 +48,12 @@ async function updateTaskStatus(id, completed) {
         const result = await response.json();
         return result;
     } catch (error) {
-        console.error('Error updating task:', error);
-        return { status: 'error', message: 'Network or API error.' };
+        console.error('Error al actualizar la tarea:', error);
+        return { status: 'error', message: 'Error de red o de API.' };
     }
 }
 
-// Function to delete a task
+// Función para eliminar una tarea
 async function deleteTask(id) {
     try {
         const url = `${SHEETS_API_URL}?action=deleteTask&id=${id}`;
@@ -60,8 +61,7 @@ async function deleteTask(id) {
         const result = await response.json();
         return result;
     } catch (error) {
-        console.error('Error deleting task:', error);
-        return { status: 'error', message: 'Network or API error.' };
+        console.error('Error al eliminar la tarea:', error);
+        return { status: 'error', message: 'Error de red o de API.' };
     }
 }
-
